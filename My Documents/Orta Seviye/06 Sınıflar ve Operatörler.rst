@@ -146,8 +146,7 @@ Konsepti anladığınıza göre sadece fonksiyon isimlerini ve işaretlerini ver
     __rtruediv__(self, other) /
     __rfloordiv__(self, other) //
     __rmod__(self, other) %
-    __rdivmod__(self, other) divmod()
-    __rpow__(self, other) pow() **
+    __rpow__(self, other) **
     __rlshift__(self, other) <<
     __rrshift__(self, other) >>
     __rand__(self, other) &
