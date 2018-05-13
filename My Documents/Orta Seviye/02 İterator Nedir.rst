@@ -9,12 +9,14 @@ Iteratorlar Nedir?/ What are Iterators?
 **************************
 
 Iterable nedir. Aslında ne olduğunu bilmeseniz bile iteratorleri pek çok defa kullandınız. En basit olarak for i in x: ifadesinde x yerine yazdığınızda hata almadığınız her şey iterable'dır yani o nesneden iterator oluşturulabilir. Daha net kavramak için bir for döngüsünde geçen olayları inceliyelim.::
+
     liste1 = [3, 8, 11, 6, 41]
     toplam = 0
     for i in liste1:
         toplam += i
     
 Burada elimizdeki listenin sayılarını toplayan bir döngü yazdık bunun while karşılığının nasıl bir şey olduğuna bakalım::
+    
     liste1 = [3, 8, 11, 6, 41]
     toplam = 0
     
@@ -41,6 +43,7 @@ bu da sonraki elemanı almak için.
 
 
 Biraz daha açıklayıcı olması için adım adım liste1 üzerinde anlatıyım.::
+
     liste1 = [3, 8, 11, 6, 41]
     toplam = 0
     
@@ -65,12 +68,14 @@ Biraz daha açıklayıcı olması için adım adım liste1 üzerinde anlatıyım
 
 
 Bundan sonra benimde geçmişte yaptığım hatalardan birini size gösteriyim::
+
     liste = [1, 2, 8, 13, 9]
     for i in range(len(liste)):
         if liste[i] == 2:
             liste[i] = 5
 
 Bu bayağı hatalı bir kullanım çünki her seferinde listeyi o elemana kadar devamlı tarıyor ve n adımda yapılacak olay n*n/2 adımda yapılıyor. Onun yerine::
+
     liste = [1, 2, 8, 13, 9]
     for sira, i in enumerate(liste):
         if i == 2:

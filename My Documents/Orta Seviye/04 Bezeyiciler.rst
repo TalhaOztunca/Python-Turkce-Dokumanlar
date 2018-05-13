@@ -11,10 +11,12 @@ Bezeyiciler / Decarators
 Not: Anlatımı ve zaman örneği hoşuma gittiği için kaynakça'da belirtilen vidyodan alıntı ve esinlenme yapılmıştır. 45.20'den itaberen decoratorlere değiniliyor.
 
 Decaratorler türkçesiyle bezeyiciler bir fonksiyonu modifiye ederler. Mesela bir proje yaptınız ve yavaş çalışıyor elinizde de birsürü fonksiyon var ve hangisinin yavaşlığa neden olduğunu bulmak istiyorsunuz. Ne yapılabilir bir fonksiyon üzerinden gösterelim.::
+
     def topla(x, y):
         return x + y
 
 Ne kadar zamanda yapıldığını bulmak için fonksiyon başlarken zamanı bulur ve döndürmeden önce bulduğumuz zamandan çıkarıp yazdırırız.::
+
     from time import time
     def topla(x, y):
         baslangic = time()
@@ -24,6 +26,7 @@ Ne kadar zamanda yapıldığını bulmak için fonksiyon başlarken zamanı bulu
         return sonuc
 
 Evet bir çözüm ama öte yandan kodlar ne kadar karmaşıklaştı daha kötüsü eğer 100 fonksiyon varsa herbirine bunu yapmak çok fazla zamanınızı alacaktır ve şuan uğraştığımız dil python olduğundan kesinlikle daha iyi bir yolu olduğunu tahmin edebilirsiniz.::
+
     from time import time
     def zaman_olcumlu_fonksiyon(func):
         def degistirilmis_fonksiyon(x, y):
@@ -43,6 +46,7 @@ Evet bir çözüm ama öte yandan kodlar ne kadar karmaşıklaştı daha kötüs
     çıkar = zaman_olcumlu_fonksiyon(çıkar)
     
 Gördüğünüz gibi iki fonksiyonda çok fazla değişiklik yapmadan değişti. Bu noktada python bunun daha güzel görünmesi için şöyle bir şey eklemiş.::
+
     from time import time
     def zaman_olcumlu_fonksiyon(func):
         def degistirilmis_fonksiyon(x, y):
@@ -62,6 +66,7 @@ Gördüğünüz gibi iki fonksiyonda çok fazla değişiklik yapmadan değişti.
         return x - y
 
 Böylelikle daha pratik gözüküyor. Bu noktada bir soru eğer karesini al diye tek parametre alan bir fonksiyonumuz olsaydı zaman_olcumlu_fonksiyon'u tek parametre yollayacak bir fonksiyon yollayacak şekilde değiştirmemiz gerekirdi ama bu istemediğimiz birşey bu yüzden::
+
     from time import time
     def zaman_olcumlu_fonksiyon(func):
         def degistirilmis_fonksiyon(*args, **kwargs):
@@ -85,6 +90,7 @@ Böylelikle daha pratik gözüküyor. Bu noktada bir soru eğer karesini al diye
         return x*x
 
 Şeklinde düzenliyoruz ve artık tüm fonksiyonlara da uygulayabiliriz. Ama ben hangi fonksiyonun çaprıldığına yazdırdığım şeye bişeyler eklemek istiyorsam ne yapmalıyım hepsi için ayrı yazmaya geri mi döneceğiz yoksa::
+
     from time import time
     def bezeyici_gonder(yazirilacak_ad):
         def zaman_olcumlu_fonksiyon(func):

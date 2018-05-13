@@ -11,6 +11,7 @@ Generatorler / Generators
 Generatorler iterator yapmaya yarar. Peki bu generatorlerin bize faydası nedir bir örnek üzerinden inceleyelim. 
 
 18'den küçük fibonnacci sayılarınının toplamını bulan bir program yazalım.::
+
     def fibonnacci_sayilarini_bul(sinir):
         x = 1
         y = 1
@@ -26,6 +27,7 @@ Generatorler iterator yapmaya yarar. Peki bu generatorlerin bize faydası nedir 
         toplam += i
 
 Bu tarz bir kod işimize yarıyor gibi peki neden bunu listeye çevirip onu iterator yapmak yerine neden doğrudan generator yapmak isteyelim. Çünki bize sağladığı çok önemli faydalar var. Bu özellikleri saymadan önce nasıl yapıldığını görelim. Aslında fonksiyonlara benziyorlar.::
+
     def fibonnacci_sayilarini_bul(sinir):
         x = 1
         y = 1
@@ -42,6 +44,7 @@ C) B dekine benzer şekilde örneğin biryerden 5 dakikada bir veri alıyorsak (
 
 
 Ayrıca bu generatorleri oluşturmak için liste oluşturuculara benzer ifadeler de vardır. Örneğin::
+
     [i*3 for i in range(6)] # bu kod 0'dan 6'ya kadar olan sayıların 3 katının listesini oluşturuyordu.
     gen1 = (i*3 for i in range(6)) # bu ise 0'dan 6'ya kadar olan sayıların 3 katını dönderecek bir generator oluşturuyor.
     for i in gen1: # gen1'in elemanları arasında dön
