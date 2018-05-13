@@ -122,6 +122,7 @@ Evet gördüğünüz gibi yazmak ne kadar da kolaylaştı diğer türlü vek3 = 
     vek3.boyutlarını_soyle()
 
 Konsepti anladığınıza göre sadece fonksiyon isimlerini ve işaretlerini veriyorum.::
+    
     # Soldan sağa işleyenler
     __add__(self, other) +
     __sub__(self, other) -
