@@ -41,7 +41,7 @@ Evet bir çözüm ama öte yandan kodlar ne kadar karmaşıklaştı daha kötüs
         return x + y
     add = zaman_olcumlu_fonksiyon(add)
 
-    def çıkar(x, y):
+    def cıkar(x, y):
         return x - y
     çıkar = zaman_olcumlu_fonksiyon(çıkar)
     
@@ -62,7 +62,7 @@ Gördüğünüz gibi iki fonksiyonda çok fazla değişiklik yapmadan değişti.
         return x + y
 
     @zaman_olcumlu_fonksiyon
-    def çıkar(x, y):
+    def cıkar(x, y):
         return x - y
 
 Böylelikle daha pratik gözüküyor. Bu noktada bir soru eğer karesini al diye tek parametre alan bir fonksiyonumuz olsaydı zaman_olcumlu_fonksiyon'u tek parametre yollayacak bir fonksiyon yollayacak şekilde değiştirmemiz gerekirdi ama bu istemediğimiz birşey bu yüzden::
@@ -82,14 +82,14 @@ Böylelikle daha pratik gözüküyor. Bu noktada bir soru eğer karesini al diye
         return x + y
 
     @zaman_olcumlu_fonksiyon
-    def çıkar(x, y):
+    def cıkar(x, y):
         return x - y
 
     @zaman_olcumlu_fonksiyon
     def karesini_al(x):
         return x*x
 
-Şeklinde düzenliyoruz ve artık tüm fonksiyonlara da uygulayabiliriz. Ama ben hangi fonksiyonun çaprıldığına yazdırdığım şeye bişeyler eklemek istiyorsam ne yapmalıyım hepsi için ayrı yazmaya geri mi döneceğiz yoksa::
+Şeklinde düzenliyoruz ve artık tüm fonksiyonlara da uygulayabiliriz. Ama ben hangi fonksiyonun çağrıldığını yazdırdığım şeye bişeyler eklemek istiyorsam ne yapmalıyım hepsi için ayrı yazmaya geri mi döneceğiz yoksa::
 
     from time import time
     def bezeyici_gonder(yazirilacak_ad):
@@ -103,15 +103,15 @@ Böylelikle daha pratik gözüküyor. Bu noktada bir soru eğer karesini al diye
             return degistirilmis_fonksiyon
         return zaman_olcumlu_fonksiyon
     
-    @zaman_olcumlu_fonksiyon
+    @zaman_olcumlu_fonksiyon("topla")
     def topla(x, y):
         return x + y
 
-    @zaman_olcumlu_fonksiyon
-    def çıkar(x, y):
+    @zaman_olcumlu_fonksiyon("çıkar")
+    def cıkar(x, y):
         return x - y
 
-    @zaman_olcumlu_fonksiyon
+    @zaman_olcumlu_fonksiyon("kare")
     def karesini_al(x):
         return x*x
 
