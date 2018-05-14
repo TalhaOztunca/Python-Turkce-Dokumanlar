@@ -16,11 +16,11 @@ Evet geçen paylaşımda operatörlerin kendi oluşturduğumuz sınıflarla kull
             self.y = y
             self.z = z
             
-        def __add__(self, iv): # iv -> ikinci vektör
+        def __add__(self, iv): # iv - > ikinci vektör
             assert type(iv) is Vektor, "Sadece vektörlerle vektörler toplanabilir!!"
             return Vektor(self.x+iv.x, self.y+iv.y, self.z+iv.z)
         
-        def __sub__(self, iv): # iv -> ikinci vektör
+        def __sub__(self, iv): # iv - > ikinci vektör
             assert type(iv) is Vektor, "Bir vektörden sadece başka bir vektör çıkarılabilir!!"
             return Vektor(self.x-iv.x, self.y+iv.y, self.z-iv.z)
             
@@ -226,44 +226,44 @@ Evet konsepti genel olarak anladığınızı düşünerek değiştirilme ihtimal
 
     Bunun altındakiler o sınıftan temel veri tiplerini oluşturmak üzere
     ve mutlaka o sınıftan bir üye döndürmeli!
-    __int__(self):      -> int
-    __str__(self):      -> str
-    __float__(self):    -> float
-    __list__(self):     -> list
-    __tuple__(self):    -> tuple
-    __bool__(self):     -> bool
-    __chr__(self):      -> chr
-    __set__(self):      -> set
-    __frozenset__(self) -> frozenset
-    __dict__(self):     -> dict
-    __complex__(self):  -> complex
+    __int__(self):      - > int
+    __str__(self):      - > str
+    __float__(self):    - > float
+    __list__(self):     - > list
+    __tuple__(self):    - > tuple
+    __bool__(self):     - > bool
+    __chr__(self):      - > chr
+    __set__(self):      - > set
+    __frozenset__(self) - > frozenset
+    __dict__(self):     - > dict
+    __complex__(self):  - > complex
     
     Mutlak değer anlamına gelmektedir. Herhangi birşey döndürebilmesine rağmen integer
     döndürmek ve mantıklı yerlerde kullanmak daha iyi olacaktır.
-    __abs__(self): -> herhangi birşey
+    __abs__(self): - > herhangi birşey
     
     Divmod tam böleni ve modunu beraber gönderen bir fonksiyondur. Rdivmod ise 
     sağdan sola doğru işleyecek.
-    __divmod__(self, ip): -> herhangi birşey
+    __divmod__(self, ip): - > herhangi birşey
     
     Pow fonksiyonu aynı zamanda standart fonksiyon olan pow içinde kullanılır.
     3. yü herhangi birşeye eşitleyerek a ** b gibi bir kullanımı da sabit tutabilirsiniz.
     rpow da tahmin edeceğiniz üzere tersten işleyeni
-    __pow__(self, ip, up = ...): -> herhangi birşey
+    __pow__(self, ip, up = ...): - > herhangi birşey
     __rpow__(self)
     
     Repr representten geliyor olmalı yani kendini tanıtmak printe parametre olarak yolladığınızda
     bastırılıcak şey ve string döndürmesi şart.
-    __repr__(self): -> str
+    __repr__(self): - > str
     
     Len fonksiyonu eleman sayısıyla alakalıdır ve integer döndürmesi şart.
-    __len__(self): -> int
+    __len__(self): - > int
     
     Reversed fonksiyonu ters çevirilmiş hali demek.
-    __reversed__(self): -> herhangi bir şey
+    __reversed__(self): - > herhangi bir şey
     
     Round da yuvarlama anlamında ikincisini standart bir şeye eşitleyebilirsiniz.
-    __round__(self, ip = ...): -> herhangi bir şey
+    __round__(self, ip = ...): - > herhangi bir şey
     
     
 NOT: Çoğunu kendim dir komutuyla arayarak ve classlar üzerinde deneyerek buldum bir çok eksiklikler olması muhtemel eğer bulursanız lütfen düzeltin.
