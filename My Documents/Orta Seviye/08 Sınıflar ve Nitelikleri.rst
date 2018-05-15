@@ -8,10 +8,6 @@
 Sınıflar ve Nitelikler/ Classes and Properties
 **************************
 
-Doldur????????????????????
-
-Getters and Setters
-**************
 Getter ve setter metodları objelerimizin belirli niteliklerine ulaşılmak istendiğinde kullanılır. Buna neden ihtiyacımız var önce bir örnek verelim.::
 
     class Araba:
