@@ -8,14 +8,14 @@
 Generatorler / Generators
 **************************
 
-Generatorler iterator yapmaya yarar. Peki bu generatorlerin bize faydası nedir bir örnek üzerinden inceleyelim. 
+Generatorler tek başına fonksiyon olarak iterator yapmaya yararlar.
 
-18'den küçük fibonnacci sayılarınının toplamını bulan bir program yazalım.::
+Öncelikle belirli bir sınıra kadar olan fibonnacci sayılarını liste olarak gönderen bir fonksiyon yazalım. Ardından 18'e kadar olan fibonacci sayılarının toplamını bulan bir program yazalım.::
 
     def fibonnacci_sayilarini_bul(sinir):
-        x = 1
+        x = 0
         y = 1
-        sayilar = [1, 1]
+        sayilar = [0, 1]
         while y < sinir:
             x, y =  y, x+y
             sayilar.append(y)
@@ -26,30 +26,50 @@ Generatorler iterator yapmaya yarar. Peki bu generatorlerin bize faydası nedir 
     for i in sayilar:
         toplam += i
 
-Bu tarz bir kod işimize yarıyor gibi peki neden bunu listeye çevirip onu iterator yapmak yerine neden doğrudan generator yapmak isteyelim. Çünki bize sağladığı çok önemli faydalar var. Bu özellikleri saymadan önce nasıl yapıldığını görelim. Aslında fonksiyonlara benziyorlar.::
+Bunu yukarıdaki gibi yapabileceğimiz gibi generatorleri kullanarak da yapabiliriz::
 
     def fibonnacci_sayilarini_bul(sinir):
-        x = 1
+        x = 0
         y = 1
-        yield 1
-        yield 1
         while y < sinir:
+            yield x
             x, y = y, x+y
-            yield y
+            
+Bu generator ile biz iterator oluşturuyoruz ve next dediğimizde fonksiyon çalışmaya başlıyor. Fakat yield keyword'ü geldiği anda o değer geri döndürülüyor. Fakat fonksiyonlardan farklı olarak tekrar next çağrıldığında eski yield ettiği yerin sonraki adımından başlayarak tekrar yield ifadesi görene kadar devam ediyor. Sonuna geldiğinde StopIteration hatası veriyor.
+            
+İki yöntemle de istediğimizi elde edebiliyorsak neden generatorleri kullanmak isteyelim? 
+1) İlk yöntemde biz liste döndürmüştük yani bu hafızada üstünde dolaşmak istediğimiz veri kadar yer tutmak manasına geliyor. Fakat biz generator kullandığımızda ihtiyacımız olduğunda veriyi kullanıp sonrasında hafızamızda tutmamız gerekmez.
+2) Veriyi işlemeye başlamadan önce oluşturmamız gerekiyor. Mesela bize internet üzerinden 5 dakikada bir veri geldiğini ve bizim bu veriyi 2 dakikada işlediğimizi düşünelim. Sonuç olarak 10 tane veri alalım. Fonksiyon kullandığımızda 45 dakika veriyi almak için harcayıp 20 dakika da bu verileri işlemek için harcarız sonuç olarak 65 dakikada program biter. Fakat generator kullanırsak ilk veriyi alır işler sonra ikinci verinin gelmesini bekleriz ve bu böyle devam eder. Sonuç olarak 47 dakikada bitmiş olur.
+3) Bir farklı neden de kaç tane veri istediğimizi bilmiyor olabiliriz veya ulaşmak istediğimiz şeye ulaşınca kalanını kullanmamız gerekmeyebilir. Yukarıdaki örneği ele alırsak istediğimiz bilgi gelen ilk veri içinde olsun. Fonksiyon kullandığımızda 45 dakika tüm verilerin gelmesini ve 2 dakika ilk verinin işlenmesini bekleriz toplamda 47 dakika. Generator kullandığımızda ilk veri gelir 2 dakika içinde işler aradığımızı bulur ve 2 dakika içinde programı bitiririz.
 
-Söylediğim gibi fonksiyon gibiler ama arasındaki en büyük yazım farkı return deyimi yerine yield kullanılması. iteratordan her sonraki nesne istendiğinde fonkiyona dönüyor yield görene kadar işlemleri yaptırıyor ve tekrar istendiğinde aynı kaldığı yerden devam ediyor. Avantajlarına gelecek olursak:
-A) Farkettiyseniz ikincisinde elemanları listede tutmadık yani atıyorum 1 milyon eleman üzerinde yapmamız gereken bir işlem olsaydı hepsini hafızamızda tutmamız gerekecekti ama öte yandan generatorümüzde sadece iki veriyi hafızamızda tutuyoruz.
-B) Generatorlerde her ihtiyacımız olduğunda veriyi alıyoruz ama fonksiyonda bütün veriler tamamlandığında yani bizim aradığımız şey ikinci elemandaysa ama liste 10000 elemanlıysa 2 birim zamanda elde edip gerisine ihtiyacımız olmayacak şey için fuzuli zaman harcamış olacaktık.
-C) B dekine benzer şekilde örneğin biryerden 5 dakikada bir veri alıyorsak (internet üzerinden olur, robottan olur) ve 16 adet veriye ihtiyacımız varsa biz bu verileri işlemeye başalamadan önce 80 dakika bekleyecek ve ondan sonra tamamını işleyecektik onun yerine veriyi alıp işlesek ve 5 dakika sonra diğer veriyi alıp işlesek o 80 dakikadaki programın boş durmasını engellerdik ayrıca B'deki gibi aradığımız veri 2. sinyal arasındaysa belkide 11 dakikada yapılacak işi 85 dakikada yapmak zorunda kalacaktık.
+Kaç veri istediğimizi bilmememize örnek olarak fibonacci sayılarının toplamının belirli bir sayıdan düşük en büyük halini istediğimizi düşünelim. Kaç eleman kullanarak bu sayıyı geçeceğimizi bilmediğimizden fonksiyonlarla bunu çözmek mantıklı olmayacaktır::
 
+   def 
+
+!!! Fibonacci kodları örnek açısından verilmiştir. Özellikle büyük adımları bulmada kullanabileceğiniz çok daha iyi alternatif çözümleri vardır 
+
+    def fibonacci():
+        a = 0
+        b = 1
+        while True:
+            yield a
+            a, b = b, a+b
+            
+    res = 0
+    limit = 15
+    for i in fibonacci():
+        print(f"{i=}, {res=}")
+        if res+i > limit:
+            break
+        res += i
 
 Ayrıca bu generatorleri oluşturmak için liste oluşturuculara benzer ifadeler de vardır. Örneğin::
 
-    [i*3 for i in range(6)] # bu kod 0'dan 6'ya kadar olan sayıların 3 katının listesini oluşturuyordu.
+    [i*3 for i in range(6)] # bu kod 0'dan 6'ya kadar olan sayıların 3 katlarının listesini oluşturuyordu.
     gen1 = (i*3 for i in range(6)) # bu ise 0'dan 6'ya kadar olan sayıların 3 katını dönderecek bir generator oluşturuyor.
     for i in gen1: # gen1'in elemanları arasında dön
         print(i) # i'yi bastır
-    
-Liste oluşturucularda verilen tüm örnekler [] generatorler için de geçerlidir deneyerek görebilirsiniz ()
+ 
+Liste oluşturucularla verilen tüm örnekleri generatorler için de [] yerine () kullanarak deneyebilirsiniz
 
-Ayrıca ufak bir hatırlatma olarak generatorler hafızada yer kaplamaz yani bu şu manaya geliyor üstünden geçdikten sonra o veriye tekrar ulaşamazsınız generator1[3] gibi bir olay söz konusu değil yani veriyi hafızanızda tutmak istiyorsanız bunu aklınızda bulundurmak iyi olabilir.
+Hafızada yer kaplamaması duruma göre dezavantaj da oluşturabilir. Örneğin fibonacci örneğinde iki önceki elemanı ver 3. elemandan tekrarla gibi ifadeler kullanamayız. Fakat bir liste olsaydı üstünde istediğimiz değişiklikleri yapabilirdik. 
