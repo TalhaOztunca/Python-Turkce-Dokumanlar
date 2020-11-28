@@ -34,6 +34,10 @@ Bunu yukarıdaki gibi yapabileceğimiz gibi generatorleri kullanarak da yapabili
         while y < sinir:
             yield x
             x, y = y, x+y
+    
+    toplam = 0
+    for i in sayilar:
+        toplam += i
             
 Bu generator ile biz iterator oluşturuyoruz ve next dediğimizde fonksiyon çalışmaya başlıyor. Fakat yield keyword'ü geldiği anda o değer geri döndürülüyor. Fakat fonksiyonlardan farklı olarak tekrar next çağrıldığında eski yield ettiği yerin sonraki adımından başlayarak tekrar yield ifadesi görene kadar devam ediyor. Sonuna geldiğinde StopIteration hatası veriyor.
             
@@ -46,7 +50,7 @@ Kaç veri istediğimizi bilmememize örnek olarak fibonacci sayılarının topla
 
    def 
 
-!!! Fibonacci kodları örnek açısından verilmiştir. Özellikle büyük adımları bulmada kullanabileceğiniz çok daha iyi alternatif çözümleri vardır 
+!!! Fibonacci kodları örnek açısından verilmiştir. Özellikle büyük adımları bulmada kullanabileceğiniz çok daha iyi alternatif çözümleri vardır ::
 
     def fibonacci():
         a = 0
