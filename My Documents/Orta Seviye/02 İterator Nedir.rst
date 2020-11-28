@@ -63,11 +63,11 @@ Eğer iteratorun sonraki elemanı kalmadıysa döngüyü bitir.
     
     
 ## Iterable Nedir
-Basitçe ´\_\_iter\_\_(self)´ ve ´\_\_next\_\_(self)´ fonksiyonları tanımlı objeler diyebiliriz. 
+Basitçe \_\_iter\_\_(self) ve \_\_next\_\_(self) fonksiyonları tanımlı objeler diyebiliriz. 
 Python'ın kendiyle beraber gelen bir çok sınıf için hali hazırda nasıl çalıştığı tanımlanmış olup 
 biz de kendi sınıflarımız için tanımlar yapabiliriz.
 
-Örneğin bir öğrenci topluluğumuz olsun ve bu sınıfta not ortamaları ve isimleriyle öğrenciler olsun. Biz belirli bir notun üstündeki öğrencileri tebrik edelim.::
+Örneğin bir öğrenci topluluğumuz olsun ve bu sınıfta not ortamaları ve isimleriyle öğrenciler olsun. Biz belirli bir notun üstündeki öğrencileri tebrik edelim::
 
     from random import random as rnd
     from random import choice as rndc
@@ -144,16 +144,16 @@ Ya da tree'mizdeki değerleri dfs ile dolaşalım::
                 self.c = connections
                 
             def __iter__(self):
-                self.stack = [self.r] # set stack as root
+                self.stack = [self.r] # stack'i ilk elemanı root olacak şekilde ayarla
                 return self
             
             def __next__(self):
-                if len(self.stack) == 0: # if stack is empty finish
+                if len(self.stack) == 0: # stack'te eleman kalmadıysa StopIteration hatası göndererek iteration'ı bitir
                     raise StopIteration
-                it = self.stack[-1] # get last element
-                self.stack.pop() # remove last one from stack
-                self.stack.extend(self.c.get(it, [])) # add its childs to stack if not in connections just use []
-                return it # return that element
+                it = self.stack[-1] # son elemanı al
+                self.stack.pop() # son elemanı stack'ten çıkar
+                self.stack.extend(self.c.get(it, [])) # stacke'e son elemanın çocuklarını ekle eğer connection oluşturlmadıysa boş liste kullan
+                return it # o elemanı geri gönder
             
         def __init__(self, root):
             self.root = root
