@@ -6,10 +6,11 @@
 **************************
 Döküman Hakkında Genel Bilgiler
 **************************
+Yıllar sonra gelen edit: Bu dökümanları yazarken üniversite hazırlıktaydım. Zaten çok iyi bir türkçe bilgimin olmaması aşırı derece ingilizceye maruz kalışımla birleşerek ortaya okuması zor bir dökümantasyon ortaya çıkarmış. Yeni konular ekliyip eklememe konusunda emin olmamakla beraber eski yazdıklarımı yakın bir zamanda revize etmeyi planlıyorum.
 
-Python hakkında döküman yazmaya karar verdikten sonra yeni başlayanlar için çok fazla kaynak oluşturulduğunu gördüm gerek pdfler(istihza gibi çok sağlam kaynaklarla beraber) gerekse vidyolarla. Ama orta kulvarda veya daha üst seviyede ne yazıkki çok fazla kaynak bulamadım ve ilk dökümantasyonu burayı hedef alarak oluşturmaya karar verdim. 
 
-Hatalı eksik yönler veya eklemek istediğiniz yerler olursa github üzerinden ulaşabilirsiniz. Kolay gelsin.
+
+Herhangi bir kaynaktan python'ı başlangıç seviyesinde öğrendiğinizde bakmak isteyebileceğiniz veya gözden kaçırmış olabileceğiniz konular.
 
 Öğrenirken yararlandığım kaynaklardan bazıları:
 https://www.programiz.com/python-programming
