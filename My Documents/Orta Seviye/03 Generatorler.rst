@@ -65,6 +65,40 @@ Kaç veri istediğimizi bilmememize örnek olarak fibonacci sayılarının topla
         
 !!! Fibonacci kodları örnek açısından verilmiştir. Özellikle büyük adımları bulmada kullanabileceğiniz çok daha iyi alternatif çözümleri vardır
 
+Başka bir generatorden üretilen verileri aktarmak için ´yield from´ ifadesini kullanabiliriz. Örneğin 4 için 1, 1, 2, 1, 2, 3, 1, 2, 3, 4 dizisini üreten bir kod tasarlayalım::
+
+    def nKadar(n):
+        for i in range(1, n+1):
+            yield i
+
+    def nKadarN(n):
+        for i in range(1, n+1):
+            yield from nKadar(i)
+    
+    for i in nKadarN(4):
+        print(i)
+
+Graphlar üzerinde dfs yapmak için yield from'u kullanalım::
+
+    def dfs(node, connection, visited):
+        if node not in visited:
+            yield node
+            visited.add(node)
+            for i in connection.get(node, []):
+                yield from dfs(i, connection, visited)        
+            
+    node = 0
+    connection = {0:[1,3,4],
+        1:[0],
+        2:[1, 3, 5],
+        3:[0, 5],
+        4:[0, 5],
+        5:[2, 3, 4]}
+    visited = set()
+
+    for i in dfs(node, connection, visited):
+        print(i)
+
 Ayrıca bu generatorleri oluşturmak için liste oluşturuculara benzer ifadeler de vardır::
 
     [i*3 for i in range(6)] # bu kod 0'dan 6'ya kadar olan sayıların 3 katlarının listesini oluşturuyordu.
