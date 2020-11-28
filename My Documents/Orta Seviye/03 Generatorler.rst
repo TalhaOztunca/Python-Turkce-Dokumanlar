@@ -46,9 +46,7 @@ Bu generator ile biz iterator oluşturuyoruz ve next dediğimizde fonksiyon çal
    2) Veriyi işlemeye başlamadan önce oluşturmamız gerekiyor. Mesela bize internet üzerinden 5 dakikada bir veri geldiğini ve bizim bu veriyi 2 dakikada işlediğimizi düşünelim. Sonuç olarak 10 tane veri alalım. Fonksiyon kullandığımızda 45 dakika veriyi almak için harcayıp 20 dakika da bu verileri işlemek için harcarız sonuç olarak 65 dakikada program biter. Fakat generator kullanırsak ilk veriyi alır işler sonra ikinci verinin gelmesini bekleriz ve bu böyle devam eder. Sonuç olarak 47 dakikada bitmiş olur.
    3) Bir farklı neden de kaç tane veri istediğimizi bilmiyor olabiliriz veya ulaşmak istediğimiz şeye ulaşınca kalanını kullanmamız gerekmeyebilir. Yukarıdaki örneği ele alırsak istediğimiz bilgi gelen ilk veri içinde olsun. Fonksiyon kullandığımızda 45 dakika tüm verilerin gelmesini ve 2 dakika ilk verinin işlenmesini bekleriz toplamda 47 dakika. Generator kullandığımızda ilk veri gelir 2 dakika içinde işler aradığımızı bulur ve 2 dakika içinde programı bitiririz.
 
-Kaç veri istediğimizi bilmememize örnek olarak fibonacci sayılarının toplamının belirli bir sayıdan düşük en büyük halini istediğimizi düşünelim. Kaç eleman kullanarak bu sayıyı geçeceğimizi bilmediğimizden fonksiyonlarla bunu çözmek mantıklı olmayacaktır
-
-!!! Fibonacci kodları örnek açısından verilmiştir. Özellikle büyük adımları bulmada kullanabileceğiniz çok daha iyi alternatif çözümleri vardır ::
+Kaç veri istediğimizi bilmememize örnek olarak fibonacci sayılarının toplamının belirli bir sayıdan düşük en büyük halini istediğimizi düşünelim. Kaç eleman kullanarak bu sayıyı geçeceğimizi bilmediğimizden fonksiyonlarla bunu çözmek mantıklı olmayacaktır::
 
     def fibonacci():
         a = 0
@@ -64,6 +62,8 @@ Kaç veri istediğimizi bilmememize örnek olarak fibonacci sayılarının topla
         if res+i > limit:
             break
         res += i
+        
+!!! Fibonacci kodları örnek açısından verilmiştir. Özellikle büyük adımları bulmada kullanabileceğiniz çok daha iyi alternatif çözümleri vardır
 
 Ayrıca bu generatorleri oluşturmak için liste oluşturuculara benzer ifadeler de vardır::
 
