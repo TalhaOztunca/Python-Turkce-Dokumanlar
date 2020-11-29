@@ -8,7 +8,7 @@
 Assert (Güzel bir Türkçe Karşılık Bulamadım)
 **************************
 
-Muhtemelen açıkları düzeltmek için harcadığınız zaman yazmak için harcadığınızdan fazladır. Özellikle projenin çapı büyüdükçe bu oran aynı seviyede artıyor işte assert kavramı burda devreye giren bir konsept. Bazen bir fonksiyon bir veriyi hatalı işlemesine rağmen bunun programı durduran bir hataya dönüşmesi de uzun sürebiliyor ardından başlayan baş ağrıtan süreç işte tamda bu yüzden eğer hata olduğu yerde bilinirse hem yapması hem de runtime'da daha sağlıklı çalışması sağlanabilir. Konuya örnek olması açısından bir program yazalım.::
+Muhtemelen bug'ları düzeltmek için harcadığınız zaman kodu yazmak için harcadığımız zamandan fazladır. Özellikle projenin çapı büyüdükçe bu oran aynı seviyede artıyor. Python'da fonksiyonların parametrelerini de belli bir tiple sınırlandıramayınca hata alıp başını ordan oraya gidebiliyor. Mesela hatalı bir kod parçası örneği::
 
     def uc_kati(sayi):
         return sayi*3
@@ -21,8 +21,8 @@ Muhtemelen açıkları düzeltmek için harcadığınız zaman yazmak için harc
         y = input("İkinci sayıyı girin: ")
         sonuc = bol(x, y)
         print(sonuc)
-        
-Programımızı heyecanla yazdık ve sorun bol fonksiyonundan kaynaklı çıktı. Evet burda anlaması kolay hata bize / işlecinin str üzerinde çalışmadığını söylüyor buradan inputu int'e çevirmediğimizi farkedebiliriz ama sorun ilk çalışan fonksiyon uc_kati olmasına rağmen neden hata vermedi? çünki * işleci hem string'de hem de int'te çalışıyor ama biz bariz bir şekilde orada int olmasını istiyoruz. Hatayı düzeltelim bu seferde runtime bir soruna bakalım.::
+
+Programı çalıştırıp sonucu bekliyoruz ve bize bol fonksiyonunda bir hata olduğunu söylüyor. Çeşitli inputlarla deniyoruz ama ortada problem yok. Örnek için inputu yazdırdık ve görüyoruz ki x'in içinde 333 var input 3 olmasına rağmen bu şekilde uğraşmaya devam ediyoruz. Problem nerede diye soracak olursanız input'larımızı integer değerlere dönüştürmedik. Bunu dönüştürelim ve karşılaşabileceğimiz başka bir hataya göz atalım.::
 
     def uc_kati(sayi):
         return sayi*3
@@ -36,10 +36,12 @@ Programımızı heyecanla yazdık ve sorun bol fonksiyonundan kaynaklı çıktı
         sonuc = bol(x, y)
         print(sonuc)
 
-Birkaç kez denedik ve bu sefer girdilerden kaynaklı bir sorun çıktı ilk sayıyı 4 girdiler ikinci sayıyı 0 ve hata aldık. Yine anlaşılabilir bir hata ZeroDivisionError. Fakat ne her hata bu kadar yanlışımızı göstericek ne de kodlarımız bu kadar kısa olacak. Bu konunun önemini anladıktan sonra konumuza geçebiliriz. Peki assert ile bu durumu nasıl çözerdik?::
+Denemelerimizi yaptık herşey yerli yerinde gözüküyor. Fakat 4 ve 0 inputunu girdiğimizde bir hatayla karşılaştık. Bu sefer neden daha iyi anlaşılabilir ZeroDivisionError.
+
+Peki burada python bize neler sunuyor. 2 seçeneğimiz var. Birisi hata göndermek. İkincisi assert kullanmak. Öncelikle assert kullanarak nasıl yazılabileceğini görelim::
 
     def uc_kati(sayi):
-        assert type(sayi) is int or type(sayi) is float, "uc_kati fonksiyonuna sadece int veya float yollamalısınız!!"
+        assert type(sayi) is int, "uc_kati fonksiyonuna sadece int yollamalısınız!!"
         return sayi*3
         
     def bol(bolunen, bolen):
@@ -52,4 +54,23 @@ Birkaç kez denedik ve bu sefer girdilerden kaynaklı bir sorun çıktı ilk say
         sonuc = bol(x, y)
         print(sonuc)
 
-Gördüğünüz üzere assert ifadesinden sonra sonucu bool olacak bir ifade ve virgülden sonra bir string yazıyoruz bool'un True olmadığı her durumda hata fırlayacak. Böylelikle hem hata başka yerlere sıçramadan çözebilir hem de kodunuzu başkaları kullanacaksa onlara yol gösterebilirsiniz. Ayrıca hatayı anlatan string'in anlaşılır olmasına dikkat edin.
+Örnekte incelenebildiği üzere assert üç parçadan oluşuyor. Önce ´assert´ yazıyoruz ardından o an programdan beklentimizin ne olduğunu yazıyoruz bolen'in sıfır olmaması sayi'nın integer olması gibi. Ardından virgül ile beraber beklediğimiz koşul doğru olmaz ise ne yazdırarak programı sonlandıracağımızı yazıyoruz.
+
+Burda koşulumuzu iyi bir şekilde belirlemeliyiz. Örneğin yukarıdaki kod float değerler için de çalışması problem değilken bu haliyle çalışamıyor veya int değerinden türetilmiş sınıflarla da çalışamıyor. Onun yerine herhangi bir sayıyla(float, int, complex veya bunlardan türeyen her şey) çalışsın demek için aşşağıdaki kodu kullanabilirdik::
+
+    import numbers
+    def uc_kati(sayi):
+        assert isinstance(sayi, numbers.Number), "uc_kati fonksiyonuna sadece sayı yollamalısınız!!"
+        return sayi*3
+        
+    def bol(bolunen, bolen):
+        assert bolen != 0, "Bolen sayı 0 olamaz bölme işleminde hata var!!"
+        return bolunen / bolen
+        
+    if __name__ == "__main__":
+        x = uc_kati(int(input("Birinci sayıyı girin: ")))
+        y = int(input("İkinci sayıyı girin: "))
+        sonuc = bol(x, y)
+        print(sonuc)
+
+Peki hata mı vermeliyiz assert mi kullanmalıyız sorusuna gelirsek. Duruma bağlı. İlk önce öngörülebilir ve düzeltilebilir mi? Eğer öyleyse hata kullanıp düzeltmek için açık kapı bırakmakta fayda var. Mesela 0'la bölünemez hatasını yollarsak dışardan kullanıcıdan tekrar input alarak bir çözüm yazılabilirdi. Fakat şöyle bir senaryo düşünün biz bir dosyayı bir formattan başka bir formata dönüştürüyoruz ama dosya tanımlı formatla uyuşmayacak veriler içeriyor bu noktada herhangi bir değişiklik yapmak yerine programı doğrudan sonlandırarak kullanıcıya bir uyarı verebiliriz.
