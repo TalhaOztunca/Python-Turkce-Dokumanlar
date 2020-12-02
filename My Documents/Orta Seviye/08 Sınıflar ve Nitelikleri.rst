@@ -12,71 +12,69 @@ Getter ve setter metodları objelerimizin belirli niteliklerine ulaşılmak iste
 
     class Araba:
         def __init__(self, hiz_limiti):
-            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabileceği varsayılmıştır fakat siz {} \
-    tipinde değer yolladınız".format(type(hiz_limiti))
-            assert hiz_limiti > 0, " - bir hız olamaz ama arabanıza - bir hız verdiniz. {}".format(hiz_limiti)
+            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabilir!"
+            assert hiz_limiti > 0, " Negatif bir hız olamaz"
             self.hiz_limiti = hiz_limiti
 
-Şimdi çalışma esnasında hız limitini değiştirecek bir olay olduğunu ve değiştirmemiz geektiğini düşünelim şöyle bir yol izleyebilirdik ama bu şekilde değiştirdiğimizde hız limitinin - olmaması gerektiğini söyleyen kuralı kırabilecek miyiz?::
+Şimdi çalışma esnasında hız limitini değiştirecek bir olay olduğunu ve değiştirmemiz gerektiğini düşünelim. Aşşağıdak bir yol izleyebiliriz.::
 
     class Araba:
         def __init__(self, hiz_limiti):
-            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabileceği varsayılmıştır fakat siz {} \
-    tipinde değer yolladınız".format(type(hiz_limiti))
-            assert hiz_limiti > 0, " - bir hız olamaz ama arabanıza - bir hız verdiniz. {}".format(hiz_limiti)
+            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabilir!"
+            assert hiz_limiti > 0, " Negatif bir hız olamaz"
             self.hiz_limiti = hiz_limiti
             
     reno = Araba(80)
     reno.hiz_limiti = -8
-    
-Aynı zamanda -'li bir değer yazabileceğimiz gibi string de atayabilir ve çalışma zamanında hatalar oluşturabiliriz. Aynı şekilde arabamızın marka gibi bir özelliği daha olduğunu ve değiştirilmemesini beklediğimizi umalım.::
+
+Fakat bu şekilde yaparak negatif hız olamaz kuralını bozmuş oluyoruz. Aynı zamanda negatif sayı gibi integer olmayan birşeyler de atayarak tamamen bozabiliriz. 
+
+Arabamızın marka gibi bir özelliği daha olduğunu ve değiştirilmemesini beklediğimizi umalım.::
 
     class Araba:
         def __init__(self, hiz_limiti, marka):
-            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabileceği varsayılmıştır fakat siz {} \
-    tipinde değer yolladınız".format(type(hiz_limiti))
-            assert hiz_limiti > 0, " - bir hız olamaz ama arabanıza - bir hız verdiniz. {}".format(hiz_limiti)
-            assert type(marka) is str, " Arabanın markası sadece string bir değer olabilir ama siz {} tipi bir değer yolladınız {} ".format(marka)
+            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabilir!"
+            assert hiz_limiti > 0, " Negatif bir hız olamaz"
+            assert type(marka) is str, " Arabanın markası sadece string olabilir "
             self.hiz_limiti = hiz_limiti
             self.marka = marka
             
     reno = Araba(80, "Reno")
     reno.marka = "Wolswogen"
     
-Gördüğünüz gibi yeni bir değer atanmamasını istediğimiz halde markayı değiştirebildik. Peki bu iki sorunu nasıl önleriz. Bezeyici olarak kullanmadan önce fonksiyon olarak getter ve setter ları nasıl kullanabileceğimizi gösterelim. Get bir özelliğin değerini almak için set de bir değere yenisini atamak için kullanılır.::
+Gördüğünüz gibi değiştirlmemesini istediğimiz halde markayı değiştirebildik. Peki bu iki sorunu nasıl önleriz. Nitelik olarak oluşturmadan önce diğer dillerde kullandığımız setter ve getter yöntemini görelim. Get bir özelliğin değerini almak için set de bir özelliğe yeni değer atamak için kullanılır.::
 
     class Araba:
         def __init__(self, hiz_limiti, marka):
-            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabileceği varsayılmıştır fakat siz {} \
-    tipinde değer yolladınız".format(type(hiz_limiti))
-            assert hiz_limiti >= 0, " - bir hız olamaz ama arabanıza - bir hız verdiniz. {}".format(hiz_limiti)
-            assert type(marka) is str, " Arabanın markası sadece string bir değer olabilir ama siz {} tipi bir değer yolladınız {} ".format(marka)
-            self.hiz_limiti = hiz_limiti
-            self.marka = marka
+            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabilir!"
+            assert hiz_limiti > 0, " Negatif bir hız olamaz"
+            assert type(marka) is str, " Arabanın markası sadece string olabilir "
+            self._hiz_limiti = hiz_limiti
+            self._marka = marka
             
         def get_hiz_limiti(self):
-            return self.hiz_limiti
+            return self._hiz_limiti
             
         def get_marka(self):
-            return self.marka
+            return self._marka
             
         def set_hiz_limiti(self, yeni_limit):
             if type(yeni_limit) is not int:
-                print("Hız limiti değiştirilemedi vermek istediğiniz limit int(tam sayı) olmalı!!", \
-    "sizin gönderdiğiniz parametrenin türü {}".format(type(yeni_limit)))
+                print("Hız limiti değiştirilemedi vermek istediğiniz hız limiti tam sayı olmalı")
             elif yeni_limit < 0:
-                print("Hız limiti değiştirilemedi limit pozitif olmalı!! sizin denemeniz {}".format(yeni_limit))
+                print("Hız limiti değiştirilemedi limit pozitif olmalı")
             else:
-                self.hiz_limiti = yeni_limit
+                self._hiz_limiti = yeni_limit
 
-Evet set ve get metodlarını kullanarak bu şekilde bir yöntem kullanırsak değerlerin doğru bir şekilde değişmesini sağlarız ama hem x.y = 13 gibi bir atama yapmak varken veya print(x.y) yazdırmak varken x.set_y(13) veya x.get_y() yazmak zor hemde o şekilde bir kullanımın önüne geçememiş olduk işte tam burda gerekli bezeyicileri kullanarak yapabiliriz. Nasıl mı? (Bu arada bundan sonra değişkenlerin başına _ koyuyoruz bu onların sınıf iç işleyişiyle alakalı olduğunu ve dışardan doğrudan değiştirilmemesi gerektiğini anlatır.)::
+Kodu açıklamadan önce neden self.marka yerine self._marka tercih ettiğimizden bahsedelim. Fonksiyonların önüne ´_´ getirmek programcılar arasında bu fonksiyonun iç işleyişiyle alakalı buna dokunma gibi bir anlam taşır. Biz de doğrudan bu nitelikleri kullanmaları işleyişimizi bozacağından önüne ´_´ koyuyoruz.
+
+Set ve get metodlarını kullanarak yukardaki şekilde yazabiliriz. Fakat estetik olarak ´reno.marka´ yazmaktansa ´reno.get_marka()´ yazmak çok hoş değil. Bunu daha güzel bir şekilde şöyle ifade edebiliriz::
 
     class Araba:
         def __init__(self, hiz_limiti, marka):
-            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabileceği varsayılmıştır fakat siz {} \
-    tipinde değer yolladınız".format(type(hiz_limiti))
-            assert hiz_limiti >= 0, " - bir hız olamaz ama arabanıza - bir hız verdiniz. {}".format(hiz_limiti)
-            assert type(marka) is str, " Arabanın markası sadece string bir değer olabilir ama siz {} tipi bir değer yolladınız {} ".format(marka)
+            assert type(hiz_limiti) is int, " Hız limitinin sadece pozitif tam sayı olabilir!"
+            assert hiz_limiti > 0, " Negatif bir hız olamaz"
+            assert type(marka) is str, " Arabanın markası sadece string olabilir "
             self._hiz_limiti = hiz_limiti
             self._marka = marka
         
@@ -91,12 +89,12 @@ Evet set ve get metodlarını kullanarak bu şekilde bir yöntem kullanırsak de
         @hiz_limiti.setter
         def hiz_limiti(self, yeni_limit):
             if type(yeni_limit) is not int:
-                print("Hız limiti değiştirilemedi vermek istediğiniz limit int(tam sayı) olmalı!!", \
-    "sizin gönderdiğiniz parametrenin türü {}".format(type(yeni_limit)))
+                print("Hız limiti değiştirilemedi vermek istediğiniz hız limiti tam sayı olmalı")
             elif yeni_limit < 0:
-                print("Hız limiti değiştirilemedi limit pozitif olmalı!! sizin denemeniz {}".format(yeni_limit))
+                print("Hız limiti değiştirilemedi limit pozitif olmalı")
             else:
                 self._hiz_limiti = yeni_limit
+    
     
     reno = Araba(80, "Reno")
     print("renonun hızı: {}  markası: {}".format(reno.hiz_limiti, reno.marka))
@@ -107,8 +105,8 @@ Evet set ve get metodlarını kullanarak bu şekilde bir yöntem kullanırsak de
     
     ### sonuç ###
     renonun hızı: 80  markası: Reno
-    Hız limiti değiştirilemedi limit pozitif olmalı!! sizin denemeniz -5
+    Hız limiti değiştirilemedi vermek istediğiniz hız limiti pozitif olmalı
     renonun hızı: 80  markası: Reno
     renonun hızı: 20  markası: Reno
 
-Gördüğünüz gibi property ve propertyler için setter'lar bu şekilde oluşturuluyor.
+Gördüğünüz gibi property ve propertyler için setter'ları bu şekilde kullanarak hem sınfın iç işleyişini iyi bir halde tutup hem de görünüşten taviz vermeyebiliriz.
